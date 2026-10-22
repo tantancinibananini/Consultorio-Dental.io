@@ -1,0 +1,469 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Ayuda al cliente - Consultorio Dental Santa Maria</title>
+
+  <style>
+    /* ESTILOS GENERALES ORIGINALES */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f8fd;
+      color: #263238;
+    }
+
+    /* ENCABEZADO ORIGINAL */
+    header {
+      background: #1848b5;
+      color: white;
+      padding: 22px 15px;
+      text-align: center;
+      position: relative;
+    }
+
+    header h1 {
+      font-size: 23px;
+      font-weight: normal;
+    }
+
+    /* BOTON DEL MENU ORIGINAL */
+    #btnMenu {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    /* MENU ORIGINAL */
+    #menu {
+      position: fixed;
+      top: 0;
+      left: -270px;
+      width: 260px;
+      height: 100%;
+      background: white;
+      padding: 28px 20px;
+      transition: left 0.3s;
+      z-index: 1000;
+      box-shadow: 3px 0 12px rgba(0, 0, 0, 0.15);
+    }
+
+    #menu h2 {
+      color: #1848b5;
+      font-size: 22px;
+      margin-bottom: 25px;
+    }
+
+    #menu a {
+      display: block;
+      padding: 14px 10px;
+      margin-bottom: 5px;
+      text-decoration: none;
+      color: #333;
+      border-bottom: 1px solid #eeeeee;
+      transition: 0.2s;
+    }
+
+    #menu a:hover {
+      color: #1848b5;
+      padding-left: 16px;
+    }
+
+    /* FONDO OSCURO ORIGINAL */
+    #backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+      z-index: 900;
+    }
+
+    /* CONTENIDO PRINCIPAL */
+    .contenedor {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .titulo {
+      background: linear-gradient(135deg, #1848b5, #367acb);
+      color: white;
+      text-align: center;
+      padding: 35px 20px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+    }
+
+    .titulo h2 {
+      font-size: 30px;
+      font-weight: normal;
+      margin-bottom: 15px;
+    }
+
+    .titulo p {
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    /* INFORMACION DE CADA TRATAMIENTO */
+    .ayuda-item {
+      background: white;
+      margin-bottom: 25px;
+      padding: 22px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    }
+
+    .ayuda-item h3 {
+      color: #1848b5;
+      font-size: 21px;
+      font-weight: normal;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .ayuda-item img {
+      display: block;
+      width: 100%;
+      max-width: 500px;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin: 12px 0 18px;
+    }
+
+    .ayuda-item p {
+      font-size: 15px;
+      line-height: 1.9;
+      color: #444;
+    }
+
+    /* BOTONES */
+    .btn-azul {
+      display: inline-block;
+      background: #1848b5;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 14px;
+      margin-top: 18px;
+      transition: 0.3s;
+    }
+
+    .btn-azul:hover {
+      background: #12398f;
+      transform: translateY(-2px);
+    }
+
+    /* BOTON FLOTANTE ORIGINAL DE WHATSAPP */
+    .whatsapp-flotante {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      width: 58px;
+      height: 58px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      z-index: 2000;
+      transition: 0.3s;
+    }
+
+    .whatsapp-flotante:hover {
+      transform: scale(1.08);
+      background: #1ebe5d;
+    }
+
+    .whatsapp-flotante svg {
+      width: 32px;
+      height: 32px;
+      fill: white;
+    }
+
+    /* PIE DE PAGINA ORIGINAL */
+    footer {
+      background: #1848b5;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    /* ADAPTACION PARA CELULARES */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 17px;
+        margin-left: 25px;
+      }
+
+      .contenedor {
+        margin: 18px auto;
+        padding: 12px;
+      }
+
+      .titulo {
+        padding: 30px 18px;
+      }
+
+      .titulo h2 {
+        font-size: 25px;
+      }
+
+      .ayuda-item {
+        padding: 17px;
+      }
+
+      .ayuda-item h3 {
+        font-size: 19px;
+      }
+
+      .ayuda-item img {
+        height: 200px;
+      }
+
+      .ayuda-item p {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ENCABEZADO ORIGINAL -->
+  <header>
+    <button id="btnMenu" onclick="toggleMenu()">☰</button>
+    <h1>Consultorio Dental Santa Maria</h1>
+  </header>
+
+  <!-- MENU ORIGINAL -->
+  <div id="menu">
+    <h2>Menu principal</h2>
+
+    <a href="index.html">Inicio</a>
+    <a href="servicios.html">Servicios</a>
+    <a href="horarios.html">Horarios</a>
+    <a href="promociones.html">Promos y Combos</a>
+    <a href="ayuda.html">Ayuda al cliente</a>
+    <a href="otros.html">Otros</a>
+  </div>
+
+  <div id="backdrop" onclick="cerrarMenu()"></div>
+
+  <!-- CONTENIDO DE AYUDA -->
+  <main class="contenedor">
+
+    <section class="titulo">
+      <h2>Ayuda al cliente</h2>
+      <p>
+        Conoce nuestros tratamientos dentales, sus beneficios y cuándo
+        puede ser conveniente consultar con un profesional.
+      </p>
+    </section>
+
+    <!-- AYUDA 1: ORTODONCIA -->
+    <section class="ayuda-item">
+      <h3>¿Qué es la ortodoncia y cuándo la necesito?</h3>
+
+      <img
+        src="imagenes/ortodoncia.jpg"
+        alt="Tratamiento de ortodoncia con brackets">
+
+      <p>
+        La ortodoncia es la especialidad que corrige la posición de los
+        dientes y la mordida. Puede ser necesaria cuando los dientes están
+        torcidos, apiñados, tienen espacios grandes o cuando la mordida no
+        encaja bien y cuesta masticar. La duración del tratamiento depende
+        de cada caso. Se pueden utilizar brackets metálicos o estéticos y
+        realizar controles periódicos. Una buena alineación puede facilitar
+        la limpieza dental y ayudar a mantener la salud de las encías.
+        Para saber si necesitas ortodoncia, consulta con un dentista.
+      </p>
+
+      <a href="servicios.html" class="btn-azul">Consultar servicio</a>
+    </section>
+
+    <!-- AYUDA 2: ENDODONCIA -->
+    <section class="ayuda-item">
+      <h3>¿Qué es la endodoncia y por qué duele el diente?</h3>
+
+      <img
+        src="imagenes/endodoncia.jpg"
+        alt="Tratamiento de endodoncia o conducto dental">
+
+      <p>
+        La endodoncia, conocida como tratamiento de conducto, se realiza
+        cuando la pulpa del diente se inflama o se infecta, por ejemplo,
+        debido a una caries profunda o un golpe. Puede presentarse dolor
+        intenso y sensibilidad al frío o al calor. El tratamiento consiste
+        en limpiar el interior del diente, retirar el tejido afectado,
+        desinfectar los conductos y sellarlos. Después, el diente puede
+        necesitar una reconstrucción. El procedimiento se realiza con
+        anestesia local. Si tienes dolor dental, consulta con un profesional
+        para determinar la causa.
+      </p>
+
+      <a href="servicios.html" class="btn-azul">Consultar servicio</a>
+    </section>
+
+    <!-- AYUDA 3: EXTRACCION -->
+    <section class="ayuda-item">
+      <h3>Extracción dental: ¿cuándo es necesaria?</h3>
+
+      <img
+        src="imagenes/extraccion.jpg"
+        alt="Procedimiento de extracción dental">
+
+      <p>
+        La extracción se indica cuando un diente no se puede salvar, por
+        ejemplo, debido a una caries muy avanzada, una fractura o una
+        enfermedad periodontal severa. También puede ser necesaria en
+        algunas muelas del juicio que causan problemas. Antes del
+        procedimiento, el dentista evalúa el diente y puede solicitar una
+        radiografía. La extracción se realiza con anestesia local.
+        Después, es importante seguir las indicaciones profesionales,
+        evitar fumar y no realizar enjuagues vigorosos durante las primeras
+        horas. Si el sangrado es abundante o el dolor empeora, busca
+        atención dental.
+      </p>
+
+      <a href="servicios.html" class="btn-azul">Consultar servicio</a>
+    </section>
+
+    <!-- AYUDA 4: LIMPIEZA DENTAL -->
+    <section class="ayuda-item">
+      <h3>Limpieza dental profesional: ¿cada cuánto hacerla?</h3>
+
+      <img
+        src="imagenes/limpieza.jpg"
+        alt="Limpieza dental profesional">
+
+      <p>
+        La limpieza dental profesional elimina la placa bacteriana y el
+        sarro que no se pueden retirar completamente con el cepillado.
+        Puede realizarse con instrumentos especiales o ultrasonido y,
+        cuando corresponde, pulido dental. La frecuencia recomendada
+        depende de la salud bucal de cada persona; muchas personas acuden
+        aproximadamente cada seis meses, mientras que otras necesitan
+        controles más frecuentes. La limpieza ayuda a mantener las encías
+        saludables, pero no reemplaza el cepillado ni el uso diario de hilo
+        dental. Consulta al dentista para conocer la frecuencia adecuada
+        para ti.
+      </p>
+
+      <a href="servicios.html" class="btn-azul">Consultar servicio</a>
+    </section>
+
+    <!-- AYUDA 5: ODONTOLOGIA INFANTIL -->
+    <section class="ayuda-item">
+      <h3>Odontología infantil: ¿cómo preparar a tu niño?</h3>
+
+      <img
+        src="imagenes/infantil.jpg"
+        alt="Atención odontológica infantil">
+
+      <p>
+        La odontología infantil se ocupa de la salud bucal de bebés,
+        niños y adolescentes. La primera visita al dentista se recomienda
+        al aparecer el primer diente o, como máximo, alrededor del primer
+        cumpleaños. Para reducir el miedo, es útil explicar la visita con
+        palabras sencillas y positivas. Entre los cuidados y tratamientos
+        que pueden indicarse están la aplicación de flúor, los sellantes,
+        las curaciones y el seguimiento del desarrollo dental. Es importante
+        mantener una buena higiene desde pequeños y acudir a revisiones
+        periódicas.
+      </p>
+
+      <a href="servicios.html" class="btn-azul">Consultar servicio</a>
+    </section>
+
+    <!-- AYUDA 6: BLANQUEAMIENTO -->
+    <section class="ayuda-item">
+      <h3>Blanqueamiento dental: qué esperar y qué cuidados tener</h3>
+
+      <img
+        src="imagenes/blanqueamiento.jpg"
+        alt="Procedimiento de blanqueamiento dental">
+
+      <p>
+        El blanqueamiento dental es un procedimiento que aclara el color
+        de los dientes mediante productos específicos. No funciona de la
+        misma manera en todas las personas y no aclara el color de resinas,
+        coronas u otras restauraciones. Antes de realizarlo, el dentista
+        debe revisar la salud bucal y determinar si es apropiado. Puede
+        producir sensibilidad temporal. Después del tratamiento, sigue
+        las indicaciones profesionales y mantén una buena higiene bucal.
+        Evita utilizar productos blanqueadores sin orientación dental.
+      </p>
+
+      <a href="servicios.html" class="btn-azul">Consultar servicio</a>
+    </section>
+
+  </main>
+
+  <!-- BOTON ORIGINAL DE WHATSAPP -->
+  <a
+    href="https://wa.me/59172488889?text=Hola%2C%20quisiera%20consultar%20sobre%20un%20tratamiento%20dental."
+    class="whatsapp-flotante"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Contactar por WhatsApp">
+
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20.52 3.48A11.8 11.8 0 0 0 12.06 0C5.5 0 .16 5.34.16 11.9c0 2.1.55 4.15 1.6 5.96L0 24l6.3-1.65a11.9 11.9 0 0 0 5.76 1.47h.01c6.56 0 11.9-5.34 11.9-11.9a11.8 11.8 0 0 0-3.45-8.44ZM12.07 21.8a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.74.98 1-3.65-.23-.37a9.85 9.85 0 0 1-1.52-5.27c0-5.46 4.44-9.9 9.9-9.9a9.83 9.83 0 0 1 7 2.9 9.83 9.83 0 0 1 2.9 7c0 5.46-4.44 9.9-9.9 9.9Zm5.43-7.42c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.5-1.77-1.67-2.07-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.21 5.09 4.5.71.31 1.27.49 1.7.63.71.22 1.35.19 1.86.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z"/>
+    </svg>
+  </a>
+
+  <!-- PIE DE PAGINA ORIGINAL -->
+  <footer>
+    <p>Consultorio Dental Santa Maria</p>
+    <p>Oruro, Bolivia - 2026</p>
+  </footer>
+
+  <!-- JAVASCRIPT ORIGINAL DEL MENU -->
+  <script>
+    function toggleMenu() {
+      let menu = document.getElementById("menu");
+
+      if (menu.style.left === "0px") {
+        cerrarMenu();
+      } else {
+        abrirMenu();
+      }
+    }
+
+    function abrirMenu() {
+      document.getElementById("menu").style.left = "0px";
+      document.getElementById("backdrop").style.display = "block";
+    }
+
+    function cerrarMenu() {
+      document.getElementById("menu").style.left = "-270px";
+      document.getElementById("backdrop").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,544 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Inicio - Consultorio Dental Santa Maria</title>
+
+  <style>
+    /* Estilos generales */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Imagen de fondo de toda la pagina */
+    body {
+      background:
+        linear-gradient(
+          rgba(245, 248, 253, 0.60),
+          rgba(245, 248, 253, 0.75)
+        ),
+        url("imagenes/consultorio.jpg") center center / cover fixed no-repeat;
+      color: #263238;
+      min-height: 100vh;
+    }
+
+    /* Encabezado: igual al de las demas paginas */
+    header {
+      background: #1848b5;
+      color: white;
+      padding: 22px 15px;
+      text-align: center;
+      position: relative;
+    }
+
+    header h1 {
+      font-size: 23px;
+      font-weight: normal;
+    }
+
+    /* Boton del menu */
+    #btnMenu {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    /* Menu lateral: exactamente igual al de las demas paginas */
+    #menu {
+      position: fixed;
+      top: 0;
+      left: -270px;
+      width: 260px;
+      height: 100%;
+      background: white;
+      padding: 28px 20px;
+      transition: left 0.3s;
+      z-index: 1000;
+      box-shadow: 3px 0 12px rgba(0, 0, 0, 0.15);
+    }
+
+    #menu h2 {
+      color: #1848b5;
+      font-size: 22px;
+      margin-bottom: 25px;
+    }
+
+    #menu a {
+      display: block;
+      padding: 14px 10px;
+      margin-bottom: 5px;
+      text-decoration: none;
+      color: #333;
+      border-bottom: 1px solid #eeeeee;
+      transition: 0.2s;
+    }
+
+    #menu a:hover {
+      color: #1848b5;
+      padding-left: 16px;
+    }
+
+    /* Fondo oscuro del menu */
+    #backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+      z-index: 900;
+    }
+
+    /* Contenido principal */
+    .contenedor {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    /* Presentacion principal */
+    .presentacion {
+      background: rgba(255, 255, 255, 0.91);
+      backdrop-filter: blur(3px);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      border-radius: 12px;
+      padding: 65px 25px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(24, 72, 181, 0.12);
+      margin-bottom: 25px;
+    }
+
+    .presentacion h2 {
+      color: #1848b5;
+      font-size: 36px;
+      font-weight: bold;
+      line-height: 1.4;
+      margin-bottom: 18px;
+    }
+
+    .presentacion p {
+      max-width: 700px;
+      margin: 0 auto;
+      color: #263238;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    /* Botones principales */
+    .botones {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .btn-azul {
+      display: inline-block;
+      background: #1848b5;
+      color: white;
+      text-decoration: none;
+      padding: 13px 22px;
+      border-radius: 5px;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .btn-azul:hover {
+      background: #12388f;
+      transform: translateY(-2px);
+    }
+
+    .btn-claro {
+      display: inline-block;
+      background: white;
+      color: #1848b5;
+      border: 1px solid #1848b5;
+      text-decoration: none;
+      padding: 13px 22px;
+      border-radius: 5px;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .btn-claro:hover {
+      background: #f0f5ff;
+      transform: translateY(-2px);
+    }
+
+    /* Seccion sobre nosotros */
+    .sobre-nosotros {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(3px);
+      border-radius: 10px;
+      padding: 30px 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 3px 10px rgba(24, 72, 181, 0.10);
+    }
+
+    .sobre-nosotros h2 {
+      color: #1848b5;
+      font-size: 26px;
+      font-weight: normal;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .sobre-nosotros p {
+      color: #444;
+      font-size: 15px;
+      line-height: 1.8;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Tarjetas informativas */
+    .informacion {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .tarjeta {
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid #e2e9f5;
+      border-radius: 10px;
+      padding: 25px 18px;
+      text-align: center;
+      box-shadow: 0 3px 10px rgba(24, 72, 181, 0.10);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .tarjeta:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(24, 72, 181, 0.18);
+    }
+
+    .tarjeta h3 {
+      color: #1848b5;
+      font-size: 19px;
+      font-weight: normal;
+      margin-bottom: 12px;
+    }
+
+    .tarjeta p {
+      color: #444;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .tarjeta a {
+      margin-top: 17px;
+    }
+
+    /* Seccion de contacto */
+    .contacto {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(3px);
+      border-radius: 10px;
+      padding: 28px 20px;
+      text-align: center;
+      box-shadow: 0 3px 10px rgba(24, 72, 181, 0.10);
+    }
+
+    .contacto h2 {
+      color: #1848b5;
+      font-size: 25px;
+      font-weight: normal;
+      margin-bottom: 12px;
+    }
+
+    .contacto p {
+      color: #444;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    /* WhatsApp: mismo logo y numero de las demas paginas */
+    .whatsapp-flotante {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      width: 58px;
+      height: 58px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      z-index: 2000;
+      transition: 0.3s;
+    }
+
+    .whatsapp-flotante:hover {
+      transform: scale(1.08);
+      background: #1ebe5d;
+    }
+
+    .whatsapp-flotante svg {
+      width: 32px;
+      height: 32px;
+      fill: white;
+    }
+
+    /* Pie de pagina */
+    footer {
+      background: #1848b5;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 13px;
+      line-height: 1.8;
+      margin-top: 30px;
+    }
+
+    /* Adaptacion para tablets */
+    @media (max-width: 850px) {
+      .informacion {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      body {
+        background-attachment: scroll;
+      }
+    }
+
+    /* Adaptacion para celulares */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 17px;
+        margin-left: 25px;
+      }
+
+      .contenedor {
+        margin: 18px auto;
+        padding: 12px;
+      }
+
+      .presentacion {
+        padding: 38px 18px;
+      }
+
+      .presentacion h2 {
+        font-size: 27px;
+      }
+
+      .presentacion p {
+        font-size: 14px;
+      }
+
+      .sobre-nosotros {
+        padding: 25px 18px;
+      }
+
+      .sobre-nosotros h2 {
+        font-size: 23px;
+      }
+
+      .sobre-nosotros p {
+        font-size: 14px;
+      }
+
+      .informacion {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .contacto h2 {
+        font-size: 22px;
+      }
+
+      .whatsapp-flotante {
+        bottom: 18px;
+        right: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Encabezado: igual al de las demas paginas -->
+  <header>
+    <button id="btnMenu" onclick="toggleMenu()">☰</button>
+    <h1>Consultorio Dental Santa Maria</h1>
+  </header>
+
+  <!-- Menu principal: no modificar -->
+  <div id="menu">
+    <h2>Menu principal</h2>
+    <a href="index.html">Inicio</a>
+    <a href="servicios.html">Servicios</a>
+    <a href="horarios.html">Horarios</a>
+    <a href="promociones.html">Promos y Combos</a>
+    <a href="ayuda.html">Ayuda al cliente</a>
+    <a href="otros.html">Otros</a>
+  </div>
+
+  <!-- Fondo para cerrar el menu -->
+  <div id="backdrop" onclick="cerrarMenu()"></div>
+
+  <!-- Contenido principal -->
+  <main class="contenedor">
+
+    <section class="presentacion">
+      <h2>Una sonrisa saludable comienza aqui</h2>
+
+      <p>
+        En el Consultorio Dental Santa Maria nos preocupamos por tu
+        salud bucal y por la confianza que nace de una sonrisa saludable.
+        Conoce nuestros servicios y comunicate con nosotros para recibir
+        informacion sobre la atencion dental.
+      </p>
+
+      <div class="botones">
+        <a href="servicios.html" class="btn-azul">
+          Conocer nuestros servicios
+        </a>
+
+        <a
+          href="https://wa.me/59172488889?text=Hola%2C%20quisiera%20reservar%20una%20consulta%20dental."
+          class="btn-claro"
+          target="_blank"
+          rel="noopener noreferrer">
+          Contactar por WhatsApp
+        </a>
+      </div>
+    </section>
+
+    <!-- Sobre el consultorio -->
+    <section class="sobre-nosotros">
+      <h2>Sobre nosotros</h2>
+
+      <p>
+        El Consultorio Dental Santa Maria ofrece atencion odontologica
+        orientada al cuidado de la salud bucal. Nuestro objetivo es
+        brindar informacion sobre los tratamientos dentales, facilitar
+        la comunicacion con los pacientes y ayudarles a conocer las
+        opciones de atencion disponibles.
+      </p>
+    </section>
+
+    <!-- Informacion principal -->
+    <section class="informacion">
+
+      <article class="tarjeta">
+        <h3>Nuestros servicios</h3>
+        <p>
+          Conoce los tratamientos dentales disponibles y encuentra
+          informacion para consultar sobre el servicio que necesitas.
+        </p>
+
+        <a href="servicios.html" class="btn-azul">
+          Ver servicios
+        </a>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Horarios de atencion</h3>
+        <p>
+          Consulta nuestros horarios de atencion y revisa la informacion
+          necesaria antes de solicitar una consulta.
+        </p>
+
+        <a href="horarios.html" class="btn-azul">
+          Ver horarios
+        </a>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Promociones y combos</h3>
+        <p>
+          Conoce las promociones y los combos dentales publicados
+          por el consultorio.
+        </p>
+
+        <a href="promociones.html" class="btn-azul">
+          Ver promociones
+        </a>
+      </article>
+
+    </section>
+
+    <!-- Contacto -->
+    <section class="contacto">
+      <h2>¿Necesitas una consulta dental?</h2>
+
+      <p>
+        Escribenos por WhatsApp para consultar sobre nuestros servicios
+        y recibir informacion sobre la atencion.
+      </p>
+
+      <div class="botones">
+        <a
+          href="https://wa.me/59172488889?text=Hola%2C%20quisiera%20reservar%20una%20consulta%20dental."
+          class="btn-azul"
+          target="_blank"
+          rel="noopener noreferrer">
+          Escribir por WhatsApp
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Boton flotante de WhatsApp: logo original -->
+  <a
+    href="https://wa.me/59172488889?text=Hola%2C%20quisiera%20reservar%20una%20consulta%20dental."
+    class="whatsapp-flotante"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Contactar por WhatsApp">
+
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20.52 3.48A11.8 11.8 0 0 0 12.06 0C5.5 0 .16 5.34.16 11.9c0 2.1.55 4.15 1.6 5.96L0 24l6.3-1.65a11.9 11.9 0 0 0 5.76 1.47h.01c6.56 0 11.9-5.34 11.9-11.9a11.8 11.8 0 0 0-3.45-8.44ZM12.07 21.8a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.74.98 1-3.65-.23-.37a9.85 9.85 0 0 1-1.52-5.27c0-5.46 4.44-9.9 9.9-9.9a9.83 9.83 0 0 1 7 2.9 9.83 9.83 0 0 1 2.9 7c0 5.46-4.44 9.9-9.9 9.9Zm5.43-7.42c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.5-1.77-1.67-2.07-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.21 5.09 4.5.71.31 1.27.49 1.7.63.71.22 1.35.19 1.86.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z"/>
+    </svg>
+  </a>
+
+  <!-- Pie de pagina -->
+  <footer>
+    <p>Consultorio Dental Santa Maria</p>
+    <p>Oruro, Bolivia - 2026</p>
+  </footer>
+
+  <script>
+    // Menu igual al de las demas paginas
+    function toggleMenu() {
+      let menu = document.getElementById("menu");
+
+      if (menu.style.left === "0px") {
+        cerrarMenu();
+      } else {
+        abrirMenu();
+      }
+    }
+
+    function abrirMenu() {
+      document.getElementById("menu").style.left = "0px";
+      document.getElementById("backdrop").style.display = "block";
+    }
+
+    function cerrarMenu() {
+      document.getElementById("menu").style.left = "-270px";
+      document.getElementById("backdrop").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>

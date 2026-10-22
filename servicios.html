@@ -1,0 +1,524 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Servicios - Consultorio Dental Santa Maria</title>
+
+  <style>
+    /* Estilos generales */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f8fd;
+      color: #263238;
+    }
+
+    /* Encabezado: igual al index */
+    header {
+      background: #1848b5;
+      color: white;
+      padding: 22px 15px;
+      text-align: center;
+      position: relative;
+    }
+
+    header h1 {
+      font-size: 23px;
+      font-weight: normal;
+    }
+
+    /* Boton del menu: igual al index */
+    #btnMenu {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    /* Menu lateral: igual al index */
+    #menu {
+      position: fixed;
+      top: 0;
+      left: -270px;
+      width: 260px;
+      height: 100%;
+      background: white;
+      padding: 28px 20px;
+      transition: left 0.3s;
+      z-index: 1000;
+      box-shadow: 3px 0 12px rgba(0, 0, 0, 0.15);
+    }
+
+    #menu h2 {
+      color: #1848b5;
+      font-size: 22px;
+      margin-bottom: 25px;
+    }
+
+    #menu a {
+      display: block;
+      padding: 14px 10px;
+      margin-bottom: 5px;
+      text-decoration: none;
+      color: #333;
+      border-bottom: 1px solid #eeeeee;
+      transition: 0.2s;
+    }
+
+    #menu a:hover {
+      color: #1848b5;
+      padding-left: 16px;
+    }
+
+    /* Fondo oscuro del menu */
+    #backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+      z-index: 900;
+    }
+
+    /* Contenedor principal */
+    .contenedor {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    /* Titulo de servicios */
+    .titulo-servicios {
+      background: white;
+      padding: 28px 20px;
+      text-align: center;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      box-shadow: 0 3px 10px rgba(24, 72, 181, 0.06);
+    }
+
+    .titulo-servicios h2 {
+      color: #1848b5;
+      font-size: 30px;
+      font-weight: normal;
+      margin-bottom: 14px;
+    }
+
+    .titulo-servicios p {
+      max-width: 650px;
+      margin: 0 auto;
+      font-size: 15px;
+      line-height: 1.8;
+      color: #555;
+    }
+
+    /* Tarjetas de servicios */
+    .servicios {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .tarjeta {
+      background: white;
+      border: 1px solid #e2e9f5;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(24, 72, 181, 0.06);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tarjeta:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(24, 72, 181, 0.13);
+    }
+
+    .tarjeta img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .tarjeta .info {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex: 1;
+    }
+
+    .tarjeta h3 {
+      color: #1848b5;
+      font-size: 19px;
+      font-weight: normal;
+      margin-bottom: 10px;
+    }
+
+    .tarjeta p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    /* Boton de consulta */
+    .btn-azul {
+      display: inline-block;
+      width: 100%;
+      background: #1848b5;
+      color: white;
+      text-decoration: none;
+      padding: 12px 18px;
+      margin-top: 18px;
+      border-radius: 5px;
+      font-size: 14px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .btn-azul:hover {
+      background: #12388f;
+      transform: translateY(-2px);
+    }
+
+    /* Boton flotante de WhatsApp: igual al index */
+    .whatsapp-flotante {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      width: 58px;
+      height: 58px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      z-index: 2000;
+      transition: 0.3s;
+    }
+
+    .whatsapp-flotante:hover {
+      transform: scale(1.08);
+      background: #1ebe5d;
+    }
+
+    .whatsapp-flotante svg {
+      width: 32px;
+      height: 32px;
+      fill: white;
+    }
+
+    /* Pie de pagina: igual al index */
+    footer {
+      background: #1848b5;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 13px;
+      line-height: 1.8;
+      margin-top: 30px;
+    }
+
+    /* Tablets */
+    @media (max-width: 850px) {
+      .servicios {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    /* Celulares */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 17px;
+        margin-left: 25px;
+      }
+
+      .contenedor {
+        margin: 18px auto;
+        padding: 12px;
+      }
+
+      .titulo-servicios {
+        padding: 25px 16px;
+      }
+
+      .titulo-servicios h2 {
+        font-size: 27px;
+      }
+
+      .titulo-servicios p {
+        font-size: 14px;
+      }
+
+      .servicios {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .tarjeta img {
+        height: 210px;
+      }
+
+      .tarjeta .info {
+        padding: 16px;
+      }
+
+      .whatsapp-flotante {
+        bottom: 18px;
+        right: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Encabezado: igual al index -->
+  <header>
+    <button id="btnMenu" onclick="toggleMenu()">☰</button>
+    <h1>Consultorio Dental Santa Maria</h1>
+  </header>
+
+  <!-- Menu principal: exactamente igual al index -->
+  <div id="menu">
+    <h2>Menu principal</h2>
+    <a href="index.html">Inicio</a>
+    <a href="servicios.html">Servicios</a>
+    <a href="horarios.html">Horarios</a>
+    <a href="promociones.html">Promos y Combos</a>
+    <a href="ayuda.html">Ayuda al cliente</a>
+    <a href="otros.html">Otros</a>
+  </div>
+
+  <!-- Fondo para cerrar el menu -->
+  <div id="backdrop" onclick="cerrarMenu()"></div>
+
+  <!-- Contenido principal -->
+  <main class="contenedor">
+
+    <section class="titulo-servicios">
+      <h2>Nuestros servicios</h2>
+
+      <p>
+        En el Consultorio Dental Santa Maria ofrecemos diferentes
+        tratamientos para cuidar tu salud bucal y mantener una
+        sonrisa saludable. Selecciona un servicio para consultar
+        y conocer nuestros horarios de atencion.
+      </p>
+    </section>
+
+    <section class="servicios" aria-label="Lista de servicios dentales">
+
+      <!-- Servicio 1 -->
+      <article class="tarjeta">
+        <img
+          src="imagenes/ortodoncia.jpg"
+          alt="Tratamiento de ortodoncia y colocacion de brackets"
+          loading="lazy">
+
+        <div class="info">
+          <h3>Ortodoncia</h3>
+          <p>
+            Corrige la posicion de los dientes y mejora la mordida
+            mediante tratamientos de ortodoncia con brackets.
+          </p>
+
+          <a
+            href="https://wa.me/59172488889?text=Hola%2C%20quisiera%20consultar%20sobre%20el%20servicio%20de%20ortodoncia."
+            class="btn-azul"
+            target="_blank"
+            rel="noopener noreferrer">
+            Consultar por WhatsApp
+          </a>
+        </div>
+      </article>
+
+      <!-- Servicio 2 -->
+      <article class="tarjeta">
+        <img
+          src="imagenes/endodoncia.jpg"
+          alt="Procedimiento de endodoncia o tratamiento de conducto"
+          loading="lazy">
+
+        <div class="info">
+          <h3>Endodoncia</h3>
+          <p>
+            Tratamiento de conducto que ayuda a conservar dientes
+            afectados por daños o infecciones en la pulpa dental.
+          </p>
+
+          <a
+            href="https://wa.me/59172488889?text=Hola%2C%20quisiera%20consultar%20sobre%20el%20servicio%20de%20endodoncia."
+            class="btn-azul"
+            target="_blank"
+            rel="noopener noreferrer">
+            Consultar por WhatsApp
+          </a>
+        </div>
+      </article>
+
+      <!-- Servicio 3 -->
+      <article class="tarjeta">
+        <img
+          src="imagenes/extraccion.jpg"
+          alt="Procedimiento de extraccion dental"
+          loading="lazy">
+
+        <div class="info">
+          <h3>Extraccion dental</h3>
+          <p>
+            Extraccion de piezas dentales cuando, por indicacion
+            profesional, no es posible conservarlas.
+          </p>
+
+          <a
+            href="https://wa.me/59172488889?text=Hola%2C%20quisiera%20consultar%20sobre%20una%20extraccion%20dental."
+            class="btn-azul"
+            target="_blank"
+            rel="noopener noreferrer">
+            Consultar por WhatsApp
+          </a>
+        </div>
+      </article>
+
+      <!-- Servicio 4 -->
+      <article class="tarjeta">
+        <img
+          src="imagenes/limpieza.jpg"
+          alt="Procedimiento de limpieza dental profesional"
+          loading="lazy">
+
+        <div class="info">
+          <h3>Limpieza dental</h3>
+          <p>
+            Limpieza profesional para ayudar a eliminar la placa
+            bacteriana y el sarro, y mantener una buena higiene bucal.
+          </p>
+
+          <a
+            href="https://wa.me/59172488889?text=Hola%2C%20quisiera%20consultar%20sobre%20una%20limpieza%20dental."
+            class="btn-azul"
+            target="_blank"
+            rel="noopener noreferrer">
+            Consultar por WhatsApp
+          </a>
+        </div>
+      </article>
+
+      <!-- Servicio 5 -->
+      <article class="tarjeta">
+        <img
+          src="imagenes/infantil.jpg"
+          alt="Atencion odontologica para niños"
+          loading="lazy">
+
+        <div class="info">
+          <h3>Odontologia infantil</h3>
+          <p>
+            Atencion dental para niños en un ambiente amigable,
+            con cuidado y orientacion para su salud bucal.
+          </p>
+
+          <a
+            href="https://wa.me/59172488889?text=Hola%2C%20quisiera%20consultar%20sobre%20odontologia%20infantil."
+            class="btn-azul"
+            target="_blank"
+            rel="noopener noreferrer">
+            Consultar por WhatsApp
+          </a>
+        </div>
+      </article>
+
+      <!-- Servicio 6 -->
+      <article class="tarjeta">
+        <img
+          src="imagenes/blanqueamiento.jpg"
+          alt="Tratamiento de blanqueamiento dental"
+          loading="lazy">
+
+        <div class="info">
+          <h3>Blanqueamiento dental</h3>
+          <p>
+            Tratamiento estetico profesional para mejorar el tono
+            de los dientes despues de una evaluacion dental.
+          </p>
+
+          <a
+            href="https://wa.me/59172488889?text=Hola%2C%20quisiera%20consultar%20sobre%20blanqueamiento%20dental."
+            class="btn-azul"
+            target="_blank"
+            rel="noopener noreferrer">
+            Consultar por WhatsApp
+          </a>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <!-- Boton flotante de WhatsApp: mismo logo y numero -->
+  <a
+    href="https://wa.me/59172488889?text=Hola%2C%20quisiera%20reservar%20una%20consulta%20dental."
+    class="whatsapp-flotante"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Contactar por WhatsApp">
+
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20.52 3.48A11.8 11.8 0 0 0 12.06 0C5.5 0 .16 5.34.16 11.9c0 2.1.55 4.15 1.6 5.96L0 24l6.3-1.65a11.9 11.9 0 0 0 5.76 1.47h.01c6.56 0 11.9-5.34 11.9-11.9a11.8 11.8 0 0 0-3.45-8.44ZM12.07 21.8a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.74.98 1-3.65-.23-.37a9.85 9.85 0 0 1-1.52-5.27c0-5.46 4.44-9.9 9.9-9.9a9.83 9.83 0 0 1 7 2.9 9.83 9.83 0 0 1 2.9 7c0 5.46-4.44 9.9-9.9 9.9Zm5.43-7.42c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.5-1.77-1.67-2.07-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.21 5.09 4.5.71.31 1.27.49 1.7.63.71.22 1.35.19 1.86.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z"/>
+    </svg>
+  </a>
+
+  <!-- Pie de pagina -->
+  <footer>
+    <p>Consultorio Dental Santa Maria</p>
+    <p>Oruro, Bolivia - 2026</p>
+  </footer>
+
+  <script>
+    // Abrir y cerrar el menu: igual al index
+    function toggleMenu() {
+      let menu = document.getElementById("menu");
+
+      if (menu.style.left === "0px") {
+        cerrarMenu();
+      } else {
+        abrirMenu();
+      }
+    }
+
+    // Abrir menu lateral
+    function abrirMenu() {
+      document.getElementById("menu").style.left = "0px";
+      document.getElementById("backdrop").style.display = "block";
+    }
+
+    // Cerrar menu lateral
+    function cerrarMenu() {
+      document.getElementById("menu").style.left = "-270px";
+      document.getElementById("backdrop").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
+
